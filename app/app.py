@@ -7,7 +7,7 @@ def index():
     return redirect(url_for('greetings'))
 @app.route('/greetings', methods=['GET'])
 def greetings():
- return jsonify(['Hello world!', 'Hello, world?', 'World, Hello!'])
+    return jsonify(['Hello world!', 'Hello, world?', 'World, Hello!'])
  
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
