@@ -61,9 +61,9 @@ def getBlabs():
 @app.route('/blabs/<id>', methods=['DELETE'])
 def removeBlab(id):
     toDel = str(id)
-    print(toDel)
     for blab in blabs:
-        if toDel == blab.get("id"):
+        if toDel == str(blab.get("id")):
+            print("del match found")
             blabs.remove(blab)
             return "200: Blab deleted successfully", 200
     return "404: Blab not found", 404
