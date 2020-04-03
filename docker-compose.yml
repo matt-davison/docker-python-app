@@ -22,10 +22,13 @@ services:
       traefik.http.middlewares.strip-api.stripprefix.prefixes: /api
       traefik.http.services.flask.loadbalancer.server.port: 5000
       traefik.http.routers.flask.middlewares: strip-api@docker
-      
 
   react-client:
     image: vtcs2304s19/blabber-client
     labels:
       traefik.http.routers.react.rule: PathPrefix(`/`)
       traefik.http.services.react.loadbalancer.server.port: 80
+
+  mongo:
+    image: mongo
+    restart: always
