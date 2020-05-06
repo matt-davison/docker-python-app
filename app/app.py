@@ -3,9 +3,17 @@ import time
 import uuid
 import pymongo
 from prometheus_flask_exporter import PrometheusMetrics
+import os
 
 mongoClient = pymongo.MongoClient("mongodb://mongo:27017")
 mongoCollection = mongoClient["cs2304"]["blabber"]
+
+db_secret = os.getenv('MONGO_SECRET')
+if os.getenv('MONGO_CONFIGURED') == 'true' and db_secret is not None:
+    print("using secret-provided mongo config")
+    mongoClient = pymongo.MongoClient("mongodb://mongo:27017")
+    mongoCollection = mongoClient["cs2304"]["blabber"]
+    
 
 app = Flask(__name__)
 
@@ -23,7 +31,6 @@ def newBlab():
     mongoCollection.insert_one(newBlab)
     newBlab.pop("_id")
     return jsonify(newBlab), 201, {'Content-Type': 'application/json'}
-
 
 #Get blabs since
 @app.route('/blabs', methods=['GET'])

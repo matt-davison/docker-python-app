@@ -23,6 +23,8 @@ services:
     environment:
       FLASK_ENV: development
       DEBUG_METRICS: 'true'
+      MONGO_SECRET: '/run/secrets/my-secret'
+      MONGO_CONFIGURED: 'false'
     labels:
       traefik.http.routers.flask.rule: PathPrefix(`/api`)
       traefik.http.middlewares.strip-api.stripprefix.prefixes: /api
@@ -33,6 +35,8 @@ services:
       placement:
         constraints:
           - "node.role==worker"
+    secrets:
+      - my-secret
 
   react-client:
     image: vtcs2304s19/blabber-client
@@ -69,3 +73,7 @@ services:
     labels:
       traefik.http.routers.grafana.rule: PathPrefix(`/metrics`)
       traefik.http.services.grafana.loadbalancer.server.port: 3000
+
+secrets:
+  my-secret:
+      file: secrets.json
