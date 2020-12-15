@@ -11,7 +11,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   app:
-    image: python-app
+    image: mattd7/python-app
     working_dir: /app
     volumes:
       - ./app:/app

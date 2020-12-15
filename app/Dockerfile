@@ -1,7 +1,7 @@
 FROM python:alpine
 WORKDIR /app
-COPY requirements.txt .
-COPY . /app
+#COPY requirements.txt .
+COPY . .
 RUN pip install -r requirements.txt
 RUN apk add curl
 ENV FLASK_APP /app/app.py
